@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher } from 'svelte';
+    import { fade } from 'svelte/transition';
 
 	const dispatch = createEventDispatcher();
 
@@ -16,6 +17,8 @@
     }
 
     const dispatchImage = $param_event => dispatch('submit', image)
+
+    const cancelUpload = $param_event => image = '';
 
     const checkImage = $param_image => {        
         if(!$param_image) return;
@@ -50,7 +53,7 @@
                     <div class="columns is-centered is-mobile">
                         <div class="column is-half margin-center">
                             <figure class="image">
-                                <img alt="Preview Image" src={ src }>
+                                <img in:fade="{{ duration: 500 }}" alt="Preview Image" src={ src }>
                             </figure>
                         </div>
                     </div>                    
@@ -62,34 +65,35 @@
 
     {#if percent && percent < 100}
         <div class="columns is-centered">
-            <div class="column is-half is-mobile">
+            <div class="column is-half-desktop is-mobile">
                 <progress class="progress is-primary" value={ percent } max="100"> { percent } </progress>
             </div>
         </div>
     {/if}
-    
-    <div class="columns">
-        <div class="column text-center">
-            <div class="file">
-                <label class="file-label">
-                    <input class="file-input" type="file" name="resume">
-                    <span class="file-cta">
-                        <span class="file-icon">
-                            <i class="fas fa-upload"></i>
-                        </span>
-                        <span class="file-label">Selecionar</span>
-                    </span>
-                </label>
-            </div>        
-        </div>        
-    </div>
 
     <div class="columns">
         <div class="column text-center">
             {#if image}
-                <a href="javascript:void()" on:click="{ dispatchImage }" class="button is-success">Submeter</a>
+                <a href="javascript:void()" on:click="{ dispatchImage }" class="button is-success">
+                    <span class="file-icon"> <i class="fas fa-upload"></i> </span>
+                    Enviar
+                </a>
+                <a href="javascript:void()" on:click="{ cancelUpload }" class="button is-danger">
+                    <span class="file-icon"> <i class="fas fa-window-close"></i> </span>
+                    Cancelar
+                </a>
             {:else}
-                <a href="javascript:void()" disabled class="button is-success">Submeter</a>
+                <div class="file">
+                    <label class="file-label">
+                        <input class="file-input" type="file" name="resume">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-camera"></i>
+                            </span>
+                            <span class="file-label">Selecionar</span>
+                        </span>
+                    </label>
+                </div>
             {/if}
         </div>
     </div>

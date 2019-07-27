@@ -1,6 +1,9 @@
 <script>
   import { Router, Link, Route } from "svelte-routing";
+  
+  import Fotos from "./routes/Fotos.svelte";
   import Home from "./routes/Home.svelte";
+  import Add from "./routes/Add.svelte";
 
   export let url = "";
 </script>
@@ -16,8 +19,9 @@
   <!-- <nav>
     <Link to="/">Home</Link>    
   </nav> -->
-  <div class="container-app">    
-    <!-- <Route path="about" component="{About}" /> -->
+  <div class="container-app">
+    <Route path="/inserir" component="{Add}" />
+    <Route path="/fotos" component="{Fotos}" />
     <Route path="/"><Home /></Route>
   </div>
 </Router>
