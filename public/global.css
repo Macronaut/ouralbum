@@ -1,4 +1,6 @@
 html {
-	background-color: #63aabc;
+	background-color: #63aabc !important;
 	overflow-y: auto;
 }
+
+.component-navbar .breadcrumb a { color: #FFF !important }

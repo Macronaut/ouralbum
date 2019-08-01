@@ -1,6 +1,8 @@
 <script>
+  import { Link } from 'svelte-routing';
+
   let current = window.location.href.split("/").pop(),
-  array = ["home", "fotos", "inserir"];
+  array = ["home", "inserir"];
 </script>
 
 <style>
@@ -9,6 +11,7 @@
     box-sizing: border-box;
     padding: 10px 0;
   }
+  
 </style>
 
 <section class="component-navbar">
@@ -16,9 +19,9 @@
     <ul>
       {#each array as url}
         {#if url === "home"}
-          <li><a class="{current === '' ? 'has-text-weight-bold' : ''} has-text-white" href="/">Home</a></li>
+          <li class="{current === '' ? 'has-text-weight-bold' : ''}"><Link to="/">Home</Link></li>
         {:else}
-          <li><a class="{current === url ? 'has-text-weight-bold' : ''} has-text-white" href="/{ url }" aria-current="page"> { url.charAt(0).toUpperCase() + url.slice(1) } </a></li>
+          <li class="{current === url ? 'has-text-weight-bold' : ''}"><Link to="/{ url }" aria-current="page"> { url.charAt(0).toUpperCase() + url.slice(1) } </Link></li>
         {/if}
       {/each}
     </ul>
